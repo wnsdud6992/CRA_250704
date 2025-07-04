@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{e250437f-aa3c-4bbf-8d4d-ef91c7a72092}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Car">
+      <UniqueIdentifier>{2eb0d687-2cde-42e3-90f6-729b5a9d002a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Screen">
+      <UniqueIdentifier>{07e95b84-1f89-4abc-8056-89841defe88d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{11e11043-0f51-4abd-818d-41e6f8196a73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BrakeSys">
+      <UniqueIdentifier>{6da631d0-b229-4819-bcbf-bd2c6b37debf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SteeringSys">
+      <UniqueIdentifier>{d6e5375e-7fd2-4eec-8547-36aa25ac8d91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestSys">
+      <UniqueIdentifier>{35970ec7-6dd7-4024-ae53-d8fac381a5a9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenManager.cpp">
+      <Filter>Screen</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenManager.h">
+      <Filter>Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="CarManager.h">
+      <Filter>Car</Filter>
+    </ClInclude>
+    <ClInclude Include="Car.h">
+      <Filter>Car</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="BrakeSys.h">
+      <Filter>BrakeSys</Filter>
+    </ClInclude>
+    <ClInclude Include="BrakeSysManager.h">
+      <Filter>BrakeSys</Filter>
+    </ClInclude>
+    <ClInclude Include="SteeringSys.h">
+      <Filter>SteeringSys</Filter>
+    </ClInclude>
+    <ClInclude Include="SteeringSysManager.h">
+      <Filter>SteeringSys</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSys.h">
+      <Filter>TestSys</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSysManager.h">
+      <Filter>TestSys</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
