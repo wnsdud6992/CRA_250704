@@ -79,7 +79,7 @@ enum Result_ErrorCode {
     Sedan_Unable_Continental_Brake,
     SUV_Unable_Toyota_Engine,
     Truck_Unable_Wia_Engine,
-    Truck_Unable_Mado_Brake,
+    Truck_Unable_Mando_Brake,
     Bosch_Brake_Only_Able_Bosch_Steering,
     Engine_Broken,
 };

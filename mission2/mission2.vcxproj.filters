@@ -48,6 +48,24 @@
     <ClCompile Include="ScreenManager.cpp">
       <Filter>Screen</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gtest\gtest-all.cc">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)..\..\lib\native\src\gmock\gmock-all.cc">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BrakeSysManager.cpp">
+      <Filter>BrakeSys</Filter>
+    </ClCompile>
+    <ClCompile Include="CarManager.cpp">
+      <Filter>Car</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="SteeringSysManager.cpp">
+      <Filter>SteeringSys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">

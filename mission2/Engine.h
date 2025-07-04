@@ -26,3 +26,10 @@ public:
 		return Engine::WIA;
 	}
 };
+
+class BrokenEngine : public IEngine {
+public:
+	Engine getType() override {
+		return Engine::BROKEN_ENGINE;
+	}
+};

@@ -31,10 +31,6 @@ public:
 		return testsys->doAction(SelectedOptions);
 	}
 
-	CheckResult getType() {
-		return testsys->getType();
-	}
-
 private:
 	std::vector<int> SelectedOptions;
 	QuestionType q_type = QuestionType::SteeringSystem_Q;

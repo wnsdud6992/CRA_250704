@@ -128,9 +128,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BrakeSysManager.cpp" />
+    <ClCompile Include="CarManager.cpp" />
+    <ClCompile Include="EngineManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="SteeringSysManager.cpp" />
+    <ClCompile Include="test.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"> %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BrakeSysManager.h" />

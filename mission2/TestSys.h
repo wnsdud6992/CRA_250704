@@ -42,7 +42,7 @@ public:
             printf("자동차 부품 조합 테스트 결과 : FAIL\n");
             printf("Truck에는 Mando제동장치 사용 불가\n");
             delay(2000);
-            return Result_ErrorCode::Truck_Unable_Mado_Brake;
+            return Result_ErrorCode::Truck_Unable_Mando_Brake;
         }
         else if (options[brakeSystem_Q] == BOSCH_B && options[SteeringSystem_Q] != BOSCH_S)
         {
