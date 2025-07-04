@@ -185,4 +185,5 @@ TEST_F(CarFactory_Fixture, Error_UserInput_Range) {
 	EXPECT_FALSE(enginemanager->isValid(test_userinput));
 	EXPECT_FALSE(brakesysmanager->isValid(test_userinput));
 	EXPECT_FALSE(steeringsysmanager->isValid(test_userinput));
+	EXPECT_FALSE(testsysmanager->isValid(test_userinput));
 }

@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>TestSys.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+#include "TestSys.h"
+
+<span style = "background-color:#dfd">Result_ErrorCode Test::doAction(const std::vector&lt;int&gt;&amp; options) {
+    printf("Test...\n");
+    delay(1500);</span>
+
+<span style = "background-color:#dfd">    if (options[CarType_Q] == SEDAN &amp;&amp; options[brakeSystem_Q] == CONTINENTAL)</span>
+    {
+<span style = "background-color:#dfd">        printf("ÀÚµ¿Â÷ ºÎÇ° Á¶ÇÕ Å×½ºÆ® °á°ú : FAIL\n");
+        printf("Sedan¿¡´Â ContinentalÁ¦µ¿ÀåÄ¡ »ç¿ë ºÒ°¡\n");
+        delay(2000);
+        return Result_ErrorCode::Sedan_Unable_Continental_Brake;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    else if (options[CarType_Q] == SUV &amp;&amp; options[Engine_Q] == TOYOTA)</span>
+    {
+<span style = "background-color:#dfd">        printf("ÀÚµ¿Â÷ ºÎÇ° Á¶ÇÕ Å×½ºÆ® °á°ú : FAIL\n");
+        printf("SUV¿¡´Â TOYOTA¿£Áø »ç¿ë ºÒ°¡\n");
+        delay(2000);
+        return Result_ErrorCode::SUV_Unable_Toyota_Engine;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    else if (options[CarType_Q] == TRUCK &amp;&amp; options[Engine_Q] == WIA)</span>
+    {
+<span style = "background-color:#dfd">        printf("ÀÚµ¿Â÷ ºÎÇ° Á¶ÇÕ Å×½ºÆ® °á°ú : FAIL\n");
+        printf("Truck¿¡´Â WIA¿£Áø »ç¿ë ºÒ°¡\n");
+        delay(2000);
+        return Result_ErrorCode::Truck_Unable_Wia_Engine;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    else if (options[CarType_Q] == TRUCK &amp;&amp; options[brakeSystem_Q] == MANDO)</span>
+    {
+<span style = "background-color:#dfd">        printf("ÀÚµ¿Â÷ ºÎÇ° Á¶ÇÕ Å×½ºÆ® °á°ú : FAIL\n");
+        printf("Truck¿¡´Â MandoÁ¦µ¿ÀåÄ¡ »ç¿ë ºÒ°¡\n");
+        delay(2000);
+        return Result_ErrorCode::Truck_Unable_Mando_Brake;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    else if (options[brakeSystem_Q] == BOSCH_B &amp;&amp; options[SteeringSystem_Q] != BOSCH_S)</span>
+    {
+<span style = "background-color:#dfd">        printf("ÀÚµ¿Â÷ ºÎÇ° Á¶ÇÕ Å×½ºÆ® °á°ú : FAIL\n");
+        printf("BoschÁ¦µ¿ÀåÄ¡¿¡´Â BoschÁ¶ÇâÀåÄ¡ ÀÌ¿Ü »ç¿ë ºÒ°¡\n");
+        delay(2000);
+        return Result_ErrorCode::Bosch_Brake_Only_Able_Bosch_Steering;</span>
+    }
+<span style = "background-color:#dfd">    printf("ÀÚµ¿Â÷ ºÎÇ° Á¶ÇÕ Å×½ºÆ® °á°ú : PASS\n");
+    delay(2000);
+    return Result_ErrorCode::Make_Success;
+}</span>
+
+
+<span style = "background-color:#dfd">Result_ErrorCode Run::doAction(const std::vector&lt;int&gt;&amp; options) {
+    if (isValidCheck(options) == false)</span>
+    {
+<span style = "background-color:#dfd">        printf("ÀÚµ¿Â÷°¡ µ¿ÀÛµÇÁö ¾Ê½À´Ï´Ù\n");
+        delay(2000);
+        return Result_ErrorCode::Make_Failed;</span>
+<span style = "background-color:#fdd">    }</span>
+    else
+    {
+<span style = "background-color:#dfd">        if (options[Engine_Q] == 4)</span>
+        {
+<span style = "background-color:#dfd">            printf("¿£ÁøÀÌ °íÀå³ªÀÖ½À´Ï´Ù.\n");
+            printf("ÀÚµ¿Â÷°¡ ¿òÁ÷ÀÌÁö ¾Ê½À´Ï´Ù.\n");
+            delay(2000);
+            return Result_ErrorCode::Engine_Broken;</span>
+<span style = "background-color:#fdd">        }</span>
+        else
+        {
+<span style = "background-color:#dfd">            if (options[CarType_Q] == 1)
+                printf("Car Type : Sedan\n");
+            if (options[CarType_Q] == 2)
+                printf("Car Type : SUV\n");
+            if (options[CarType_Q] == 3)
+                printf("Car Type : Truck\n");
+            if (options[Engine_Q] == 1)
+                printf("Engine : GM\n");
+            if (options[Engine_Q] == 2)
+                printf("Engine : TOYOTA\n");
+            if (options[Engine_Q] == 3)
+                printf("Engine : WIA\n");
+            if (options[brakeSystem_Q] == 1)
+                printf("Brake System : Mando");
+            if (options[brakeSystem_Q] == 2)
+                printf("Brake System : Continental\n");
+            if (options[brakeSystem_Q] == 3)
+                printf("Brake System : Bosch\n");
+            if (options[SteeringSystem_Q] == 1)
+                printf("SteeringSystem : Bosch\n");
+            if (options[SteeringSystem_Q] == 2)
+                printf("SteeringSystem : Mobis\n");</span>
+
+<span style = "background-color:#dfd">            printf("ÀÚµ¿Â÷°¡ µ¿ÀÛµË´Ï´Ù.\n");
+            delay(2000);
+            return Result_ErrorCode::Make_Success;</span>
+        }
+    }
+
+<span style = "background-color:#dfd">}</span>
+
+int Run::isValidCheck(const std::vector&lt;int&gt;&amp; options)
+<span style = "background-color:#dfd">{
+    if (options[CarType_Q] == SEDAN &amp;&amp; options[brakeSystem_Q] == CONTINENTAL)</span>
+    {
+<span style = "background-color:#dfd">        return false;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    else if (options[CarType_Q] == SUV &amp;&amp; options[Engine_Q] == TOYOTA)</span>
+    {
+<span style = "background-color:#dfd">        return false;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    else if (options[CarType_Q] == TRUCK &amp;&amp; options[Engine_Q] == WIA)</span>
+    {
+<span style = "background-color:#dfd">        return false;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    else if (options[CarType_Q] == TRUCK &amp;&amp; options[brakeSystem_Q] == MANDO)</span>
+    {
+<span style = "background-color:#dfd">        return false;</span>
+<span style = "background-color:#fdd">    }</span>
+<span style = "background-color:#dfd">    else if (options[brakeSystem_Q] == BOSCH_B &amp;&amp; options[SteeringSystem_Q] != BOSCH_S)</span>
+    {
+<span style = "background-color:#dfd">        return false;</span>
+    }
+<span style = "background-color:#dfd">    return true;
+}</span></pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

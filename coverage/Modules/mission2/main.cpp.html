@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>main.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+#ifdef _DEBUG
+
+#include "gmock/gmock.h"
+
+int main()
+<span style = "background-color:#dfd">{
+    testing::InitGoogleMock();
+    return RUN_ALL_TESTS();
+}</span>
+
+#else
+
+#include "Common.h"
+#include "ScreenManager.h"
+#include "CarManager.h"
+#include "EngineManager.h"
+#include "BrakeSysManager.h"
+#include "SteeringSysManager.h"
+#include "TestSysManager.h"
+
+std::unique_ptr&lt;ScreenManager&gt; screenmanager = std::make_unique&lt;ScreenManager&gt;();
+std::unique_ptr&lt;CarManager&gt; carmanager = std::make_unique&lt;CarManager&gt;();
+std::unique_ptr&lt;EngineManager&gt; enginemanager = std::make_unique&lt;EngineManager&gt;();
+std::unique_ptr&lt;BrakeSysManager&gt; brakesysmanager = std::make_unique&lt;BrakeSysManager&gt;();
+std::unique_ptr&lt;SteeringSysManager&gt; steeringsysmanager = std::make_unique&lt;SteeringSysManager&gt;();
+std::unique_ptr&lt;TestSysManager&gt; testsysmanager = std::make_unique&lt;TestSysManager&gt;();
+
+std::pair&lt;InputErrorCode, int&gt; getUserInput();
+void printCurrentStepScreen(int step);
+void selectOption(int&amp; step, int answer);
+bool selectedGoBackOrInit(int answer, int&amp; step);
+bool isInputRangeValid(int step, int answer);
+
+
+int main()
+{
+    
+    int step = CarType_Q;
+    while (1)
+    {
+        screenmanager-&gt;printCurrentStepScreen(step);
+
+        auto [ErrorCode, answer] = getUserInput();
+
+        if (ErrorCode == InputErrorCode::Exit) {
+            printf("¹ÙÀÌ¹ÙÀÌ\n");
+            break;
+        }
+        if (ErrorCode == InputErrorCode::Error_NotInteger) {
+            printf("ERROR :: ¼ýÀÚ¸¸ ÀÔ·Â °¡´É\n");
+            delay(800);
+            continue;
+        }
+
+        if (isInputRangeValid(step, answer) == false) {
+            delay(800);
+            continue;
+        }
+
+        if (selectedGoBackOrInit(answer, step)) {
+            continue;
+        }
+
+        selectOption(step, answer);
+    }
+}
+
+std::pair&lt;InputErrorCode, int&gt; getUserInput() {
+    char buf[100];
+    printf("INPUT &gt; ");
+    fgets(buf, sizeof(buf), stdin);
+
+    // ¿£ÅÍ °³Çà¹®ÀÚ Á¦°Å
+    char* context = nullptr;
+    strtok_s(buf, "\r", &amp;context);
+    strtok_s(buf, "\n", &amp;context);
+
+    if (!strcmp(buf, "exit"))
+    {
+        return { InputErrorCode::Exit, 0 };
+    }
+
+    // ¼ýÀÚ·Î µÈ ´ë´äÀÎÁö È®ÀÎ
+    char* checkNumber;
+    int answer = strtol(buf, &amp;checkNumber, 10); // ¹®ÀÚ¿­À» 10Áø¼ö·Î º¯È¯
+
+    // ÀÔ·Â¹ÞÀº ¹®ÀÚ°¡ ¼ýÀÚ°¡ ¾Æ´Ï¶ó¸é
+    if (*checkNumber != '\0')
+    {
+        return { InputErrorCode::Error_NotInteger, 0 };
+    }
+    return { InputErrorCode::Success, answer };
+}
+
+bool selectedGoBackOrInit(int answer, int&amp; step) {
+    if (answer == 0) {
+        if (step == Run_Test) {
+            step = CarType_Q;
+        }
+
+        if (step &gt; CarType_Q) {
+            step -= 1;
+        }
+        return true;
+    }
+    return false;
+}
+
+void selectOption(int&amp; step, int answer) {
+    if (step == CarType_Q) {
+        carmanager-&gt;selectType(answer);
+        step = carmanager-&gt;getNextStep();
+    }
+    else if (step == Engine_Q) {
+        enginemanager-&gt;selectType(answer);
+        step = enginemanager-&gt;getNextStep();
+    }
+    else if (step == brakeSystem_Q) {
+        brakesysmanager-&gt;selectType(answer);
+        step = brakesysmanager-&gt;getNextStep();     
+    }
+    else if (step == SteeringSystem_Q) {
+        steeringsysmanager-&gt;selectType(answer);
+        step = steeringsysmanager-&gt;getNextStep();
+    }
+    else if (step == Run_Test) {
+        std::vector&lt;int&gt; selectedOpt = { carmanager-&gt;getType(), enginemanager -&gt;getType(), brakesysmanager-&gt;getType(), steeringsysmanager-&gt;getType()};
+        testsysmanager-&gt;getSelectedOptions(selectedOpt);
+
+        testsysmanager-&gt;selectType(answer);
+        testsysmanager-&gt;doAction();
+    }
+}
+
+bool isInputRangeValid(int step, int answer) {
+    switch (step) {
+    case CarType_Q:
+        return carmanager-&gt;isValid(answer);
+    case Engine_Q:
+        return enginemanager-&gt;isValid(answer);
+    case brakeSystem_Q:
+        return brakesysmanager-&gt;isValid(answer);
+    case SteeringSystem_Q:
+        return steeringsysmanager-&gt;isValid(answer);
+    case Run_Test:
+        return testsysmanager-&gt;isValid(answer);
+    default:
+        printf("System Error.\n");
+        return false;
+    }
+    return true;
+}
+
+
+#endif</pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

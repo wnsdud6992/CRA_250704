@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <meta charset="utf-8"/>
+	    <title>test.cpp</title>
+	    <link href="../../third-party/google-code-prettify/prettify-CppCoverage.css" type="text/css" rel="stylesheet" />
+	    <script type="text/javascript" src="../../third-party/google-code-prettify/prettify.js"></script>
+	</head>
+    <body onload="prettyPrint()">
+        <h4></h4>
+        <pre class="prettyprint lang-cpp linenums">
+#include "gmock/gmock.h"
+#include "Common.h"
+#include "ScreenManager.h"
+#include "CarManager.h"
+#include "EngineManager.h"
+#include "BrakeSysManager.h"
+#include "SteeringSysManager.h"
+#include "TestSysManager.h"
+
+class CarFactory_Fixture : public ::testing::Test {
+public:
+	int test_userinput = 8;
+	std::unique_ptr&lt;ScreenManager&gt; screenmanager = std::make_unique&lt;ScreenManager&gt;();
+	std::unique_ptr&lt;CarManager&gt; carmanager = std::make_unique&lt;CarManager&gt;();
+	std::unique_ptr&lt;EngineManager&gt; enginemanager = std::make_unique&lt;EngineManager&gt;();
+	std::unique_ptr&lt;BrakeSysManager&gt; brakesysmanager = std::make_unique&lt;BrakeSysManager&gt;();
+	std::unique_ptr&lt;SteeringSysManager&gt; steeringsysmanager = std::make_unique&lt;SteeringSysManager&gt;();
+	std::unique_ptr&lt;TestSysManager&gt; testsysmanager = std::make_unique&lt;TestSysManager&gt;();
+		
+};
+
+<span style = "background-color:#dfd">TEST_F(CarFactory_Fixture, Success_Sedan_GM_MAdo_Bosch) {
+	screenmanager-&gt;printCurrentStepScreen(CarType_Q);
+	EXPECT_TRUE(carmanager-&gt;isValid(SEDAN));
+	carmanager-&gt;selectType(SEDAN);
+	carmanager-&gt;getNextStep();</span>
+
+<span style = "background-color:#dfd">	screenmanager-&gt;printCurrentStepScreen(Engine_Q);
+	EXPECT_TRUE(enginemanager-&gt;isValid(GM));
+	enginemanager-&gt;selectType(GM);
+	enginemanager-&gt;getNextStep();</span>
+
+<span style = "background-color:#dfd">	screenmanager-&gt;printCurrentStepScreen(brakeSystem_Q);
+	EXPECT_TRUE(brakesysmanager-&gt;isValid(MANDO));
+	brakesysmanager-&gt;selectType(MANDO);
+	brakesysmanager-&gt;getNextStep();</span>
+
+<span style = "background-color:#dfd">	screenmanager-&gt;printCurrentStepScreen(SteeringSystem_Q);
+	EXPECT_TRUE(steeringsysmanager-&gt;isValid(BOSCH_S));
+	steeringsysmanager-&gt;selectType(BOSCH_S);
+	steeringsysmanager-&gt;getNextStep();</span>
+
+<span style = "background-color:#dfd">	screenmanager-&gt;printCurrentStepScreen(Run_Test);
+	std::vector&lt;int&gt; selectedOpt = { carmanager-&gt;getType(), enginemanager-&gt;getType(), brakesysmanager-&gt;getType(), steeringsysmanager-&gt;getType() };
+	testsysmanager-&gt;getSelectedOptions(selectedOpt);</span>
+
+<span style = "background-color:#dfd">	EXPECT_TRUE(testsysmanager-&gt;isValid(CheckResult::RUN));
+	testsysmanager-&gt;selectType(CheckResult::RUN);
+	EXPECT_EQ(Result_ErrorCode::Make_Success, testsysmanager-&gt;doAction());</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::TEST);
+	EXPECT_EQ(Result_ErrorCode::Make_Success, testsysmanager-&gt;doAction());
+}</span>
+
+<span style = "background-color:#dfd">TEST_F(CarFactory_Fixture, Success_SUV_WIA_Continential_Mobis) {
+	carmanager-&gt;selectType(SUV);
+	enginemanager-&gt;selectType(WIA);
+	brakesysmanager-&gt;selectType(CONTINENTAL);
+	steeringsysmanager-&gt;selectType(MOBIS);</span>
+
+<span style = "background-color:#dfd">	std::vector&lt;int&gt; selectedOpt = { carmanager-&gt;getType(), enginemanager-&gt;getType(), brakesysmanager-&gt;getType(), steeringsysmanager-&gt;getType() };
+	testsysmanager-&gt;getSelectedOptions(selectedOpt);</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::RUN);
+	EXPECT_EQ(Result_ErrorCode::Make_Success, testsysmanager-&gt;doAction());</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::TEST);
+	EXPECT_EQ(Result_ErrorCode::Make_Success, testsysmanager-&gt;doAction());
+}</span>
+
+<span style = "background-color:#dfd">TEST_F(CarFactory_Fixture, Success_TRUCK_Toyota_BoschB_BoschS) {
+	carmanager-&gt;selectType(TRUCK);
+	enginemanager-&gt;selectType(TOYOTA);
+	brakesysmanager-&gt;selectType(BOSCH_B);
+	steeringsysmanager-&gt;selectType(BOSCH_S);</span>
+
+<span style = "background-color:#dfd">	std::vector&lt;int&gt; selectedOpt = { carmanager-&gt;getType(), enginemanager-&gt;getType(), brakesysmanager-&gt;getType(), steeringsysmanager-&gt;getType() };
+	testsysmanager-&gt;getSelectedOptions(selectedOpt);</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::RUN);
+	EXPECT_EQ(Result_ErrorCode::Make_Success, testsysmanager-&gt;doAction());</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::TEST);
+	EXPECT_EQ(Result_ErrorCode::Make_Success, testsysmanager-&gt;doAction());
+}</span>
+
+<span style = "background-color:#dfd">TEST_F(CarFactory_Fixture, Error_Sedan_Unable_Continental_Brake) {
+	carmanager-&gt;selectType(SEDAN);
+	enginemanager-&gt;selectType(TOYOTA);
+	brakesysmanager-&gt;selectType(CONTINENTAL);
+	steeringsysmanager-&gt;selectType(BOSCH_S);</span>
+
+<span style = "background-color:#dfd">	std::vector&lt;int&gt; selectedOpt = { carmanager-&gt;getType(), enginemanager-&gt;getType(), brakesysmanager-&gt;getType(), steeringsysmanager-&gt;getType() };
+	testsysmanager-&gt;getSelectedOptions(selectedOpt);</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::RUN);
+	EXPECT_EQ(Result_ErrorCode::Make_Failed, testsysmanager-&gt;doAction());</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::TEST);
+	EXPECT_EQ(Result_ErrorCode::Sedan_Unable_Continental_Brake, testsysmanager-&gt;doAction());
+}</span>
+
+<span style = "background-color:#dfd">TEST_F(CarFactory_Fixture, Error_SUV_Unable_Toyota_Engine) {
+	carmanager-&gt;selectType(SUV);
+	enginemanager-&gt;selectType(TOYOTA);
+	brakesysmanager-&gt;selectType(CONTINENTAL);
+	steeringsysmanager-&gt;selectType(BOSCH_S);</span>
+
+<span style = "background-color:#dfd">	std::vector&lt;int&gt; selectedOpt = { carmanager-&gt;getType(), enginemanager-&gt;getType(), brakesysmanager-&gt;getType(), steeringsysmanager-&gt;getType() };
+	testsysmanager-&gt;getSelectedOptions(selectedOpt);</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::RUN);
+	EXPECT_EQ(Result_ErrorCode::Make_Failed, testsysmanager-&gt;doAction());</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::TEST);
+	EXPECT_EQ(Result_ErrorCode::SUV_Unable_Toyota_Engine, testsysmanager-&gt;doAction());
+}</span>
+
+<span style = "background-color:#dfd">TEST_F(CarFactory_Fixture, Error_Truck_Unable_Wia_Engine) {
+	carmanager-&gt;selectType(TRUCK);
+	enginemanager-&gt;selectType(WIA);
+	brakesysmanager-&gt;selectType(CONTINENTAL);
+	steeringsysmanager-&gt;selectType(BOSCH_S);</span>
+
+<span style = "background-color:#dfd">	std::vector&lt;int&gt; selectedOpt = { carmanager-&gt;getType(), enginemanager-&gt;getType(), brakesysmanager-&gt;getType(), steeringsysmanager-&gt;getType() };
+	testsysmanager-&gt;getSelectedOptions(selectedOpt);</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::RUN);
+	EXPECT_EQ(Result_ErrorCode::Make_Failed, testsysmanager-&gt;doAction());</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::TEST);
+	EXPECT_EQ(Result_ErrorCode::Truck_Unable_Wia_Engine, testsysmanager-&gt;doAction());
+}</span>
+
+<span style = "background-color:#dfd">TEST_F(CarFactory_Fixture, Error_Truck_Unable_Mando_Brake) {
+	carmanager-&gt;selectType(TRUCK);
+	enginemanager-&gt;selectType(GM);
+	brakesysmanager-&gt;selectType(MANDO);
+	steeringsysmanager-&gt;selectType(BOSCH_S);</span>
+
+<span style = "background-color:#dfd">	std::vector&lt;int&gt; selectedOpt = { carmanager-&gt;getType(), enginemanager-&gt;getType(), brakesysmanager-&gt;getType(), steeringsysmanager-&gt;getType() };
+	testsysmanager-&gt;getSelectedOptions(selectedOpt);</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::RUN);
+	EXPECT_EQ(Result_ErrorCode::Make_Failed, testsysmanager-&gt;doAction());</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::TEST);
+	EXPECT_EQ(Result_ErrorCode::Truck_Unable_Mando_Brake, testsysmanager-&gt;doAction());
+}</span>
+
+<span style = "background-color:#dfd">TEST_F(CarFactory_Fixture, Error_Bosch_Brake_Only_Able_Bosch_Steering) {
+	carmanager-&gt;selectType(TRUCK);
+	enginemanager-&gt;selectType(GM);
+	brakesysmanager-&gt;selectType(BOSCH_B);
+	steeringsysmanager-&gt;selectType(MOBIS);</span>
+
+<span style = "background-color:#dfd">	std::vector&lt;int&gt; selectedOpt = { carmanager-&gt;getType(), enginemanager-&gt;getType(), brakesysmanager-&gt;getType(), steeringsysmanager-&gt;getType() };
+	testsysmanager-&gt;getSelectedOptions(selectedOpt);</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::RUN);
+	EXPECT_EQ(Result_ErrorCode::Make_Failed, testsysmanager-&gt;doAction());</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::TEST);
+	EXPECT_EQ(Result_ErrorCode::Bosch_Brake_Only_Able_Bosch_Steering, testsysmanager-&gt;doAction());
+}</span>
+
+<span style = "background-color:#dfd">TEST_F(CarFactory_Fixture, Error_Engine_Broken) {
+	carmanager-&gt;selectType(SUV);
+	enginemanager-&gt;selectType(BROKEN_ENGINE);
+	brakesysmanager-&gt;selectType(CONTINENTAL);
+	steeringsysmanager-&gt;selectType(MOBIS);</span>
+
+<span style = "background-color:#dfd">	std::vector&lt;int&gt; selectedOpt = { carmanager-&gt;getType(), enginemanager-&gt;getType(), brakesysmanager-&gt;getType(), steeringsysmanager-&gt;getType() };
+	testsysmanager-&gt;getSelectedOptions(selectedOpt);</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::RUN);
+	EXPECT_EQ(Result_ErrorCode::Engine_Broken, testsysmanager-&gt;doAction());</span>
+
+<span style = "background-color:#dfd">	testsysmanager-&gt;selectType(CheckResult::TEST);
+	EXPECT_EQ(Result_ErrorCode::Make_Success, testsysmanager-&gt;doAction());
+}</span>
+
+<span style = "background-color:#dfd">TEST_F(CarFactory_Fixture, Error_UserInput_Range) {
+	EXPECT_FALSE(carmanager-&gt;isValid(test_userinput));
+	EXPECT_FALSE(enginemanager-&gt;isValid(test_userinput));
+	EXPECT_FALSE(brakesysmanager-&gt;isValid(test_userinput));
+	EXPECT_FALSE(steeringsysmanager-&gt;isValid(test_userinput));
+	EXPECT_FALSE(testsysmanager-&gt;isValid(test_userinput));
+}</span></pre>
+        <hr />
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th align="center">
+                        <small>Generated by</small>
+                        <a href="https://github.com/OpenCppCoverage/OpenCppCoverage/releases">
+                            <strong>OpenCppCoverage (Version: 0.9.9.0)</strong>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+    </body>
+</html>

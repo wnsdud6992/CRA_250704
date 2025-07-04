@@ -1,8 +1,5 @@
 #include "TestSys.h"
 
-CheckResult Test::getType() {
-    return CheckResult::TEST;
-}
 Result_ErrorCode Test::doAction(const std::vector<int>& options) {
     printf("Test...\n");
     delay(1500);
@@ -48,9 +45,6 @@ Result_ErrorCode Test::doAction(const std::vector<int>& options) {
 }
 
 
-CheckResult Run::getType() {
-    return CheckResult::RUN;
-}
 Result_ErrorCode Run::doAction(const std::vector<int>& options) {
     if (isValidCheck(options) == false)
     {
@@ -121,10 +115,6 @@ int Run::isValidCheck(const std::vector<int>& options)
     else if (options[brakeSystem_Q] == BOSCH_B && options[SteeringSystem_Q] != BOSCH_S)
     {
         return false;
-    }
-    else
-    {
-        return true;
     }
     return true;
 }
