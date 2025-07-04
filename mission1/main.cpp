@@ -87,7 +87,7 @@ enum InputErrorCode
 std::pair<InputErrorCode, int> getUserInput();
 void printCurrentStepScreen(int step);
 void selectOption(int& step, int answer);
-void setStepIfAnswer0(int& step);
+bool selectedGoBackOrInit(int answer, int& step);
 bool isInputRangeValid(int step, int answer);
 void selectCarType(int answer);
 void selectEngine(int answer);
@@ -97,26 +97,9 @@ void runProducedCar();
 void testProducedCar();
 void delay(int ms);
 
-
-void delay(int ms)
-{
-    volatile int sum = 0;
-    for (int i = 0; i < 1000; i++)
-    {
-        for (int j = 0; j < 1000; j++)
-        {
-            for (int t = 0; t < ms; t++)
-            {
-                sum++;
-            }
-        }
-    }
-}
-
 int main()
 {
     int step = CarType_Q;
-
     while (1)
     {
         printCurrentStepScreen(step);
@@ -138,11 +121,10 @@ int main()
             continue;
         }
         
-        if (answer == 0) {
-            setStepIfAnswer0(step);
+        if (selectedGoBackOrInit(answer, step)) {
             continue;
         }
-       
+        
         selectOption(step, answer);
     }
 }
@@ -284,14 +266,18 @@ void selectOption(int &step, int answer) {
     }
 }
 
-void setStepIfAnswer0(int &step) {
-    if (step == Run_Test) {
-        step = CarType_Q;
-    }
+bool selectedGoBackOrInit(int answer, int &step) {
+    if (answer == 0) {
+        if (step == Run_Test) {
+            step = CarType_Q;
+        }
 
-    if (step > CarType_Q) {
-        step -= 1;
+        if (step > CarType_Q) {
+            step -= 1;
+        }
+        return true;
     }
+    return false;
 }
 
 bool isInputRangeValid(int step, int answer) {
@@ -477,6 +463,21 @@ void testProducedCar()
     else
     {
         printf("자동차 부품 조합 테스트 결과 : PASS\n");
+    }
+}
+
+void delay(int ms)
+{
+    volatile int sum = 0;
+    for (int i = 0; i < 1000; i++)
+    {
+        for (int j = 0; j < 1000; j++)
+        {
+            for (int t = 0; t < ms; t++)
+            {
+                sum++;
+            }
+        }
     }
 }
 
