@@ -137,6 +137,8 @@
     <ClCompile Include="test.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"> %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="TestSys.cpp" />
+    <ClCompile Include="TestSysManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BrakeSysManager.h" />

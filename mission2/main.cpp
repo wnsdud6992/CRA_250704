@@ -28,7 +28,7 @@ std::unique_ptr<TestSysManager> testsysmanager = std::make_unique<TestSysManager
 std::pair<InputErrorCode, int> getUserInput();
 void printCurrentStepScreen(int step);
 void selectOption(int& step, int answer);
-void setStepIfAnswer0(int& step);
+bool selectedGoBackOrInit(int answer, int& step);
 bool isInputRangeValid(int step, int answer);
 
 
@@ -57,8 +57,7 @@ int main()
             continue;
         }
 
-        if (answer == 0) {
-            setStepIfAnswer0(step);
+        if (selectedGoBackOrInit(answer, step)) {
             continue;
         }
 
@@ -93,6 +92,19 @@ std::pair<InputErrorCode, int> getUserInput() {
     return { InputErrorCode::Success, answer };
 }
 
+bool selectedGoBackOrInit(int answer, int& step) {
+    if (answer == 0) {
+        if (step == Run_Test) {
+            step = CarType_Q;
+        }
+
+        if (step > CarType_Q) {
+            step -= 1;
+        }
+        return true;
+    }
+    return false;
+}
 
 void selectOption(int& step, int answer) {
     if (step == CarType_Q) {
@@ -117,20 +129,6 @@ void selectOption(int& step, int answer) {
 
         testsysmanager->selectType(answer);
         testsysmanager->doAction();
-    }
-}
-
-void setStepIfAnswer0(int& step) {
-    // 처음으로 돌아가기
-    if (step == Run_Test)
-    {
-        step = CarType_Q;
-    }
-
-    // 이전으로 돌아가기
-    if (step >= 1)
-    {
-        step -= 1;
     }
 }
 

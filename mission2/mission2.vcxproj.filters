@@ -66,6 +66,12 @@
     <ClCompile Include="SteeringSysManager.cpp">
       <Filter>SteeringSys</Filter>
     </ClCompile>
+    <ClCompile Include="TestSys.cpp">
+      <Filter>TestSys</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSysManager.cpp">
+      <Filter>TestSys</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">

@@ -3,33 +3,13 @@
 
 class TestSysManager {
 public:
-	bool isValid(int select) {
-		if (!(select >= CheckResult::INIT && select < CheckResult::MAX_CHECK_TYPE)) {
-			printf("ERROR :: Run 또는 Test 중 하나를 선택 필요\n");
-			return false;
-		}
-		return true;
-	}
+	bool isValid(int select);
 
-	void selectType(int select) {
-		CheckResult type = static_cast<CheckResult>(select);
-		switch (type) {
-		case CheckResult::TEST:
-			testsys = std::make_unique<Test>();
-			break;
-		case CheckResult::RUN:
-			testsys = std::make_unique<Run>();
-			break;
-		}
-	}
+	void selectType(int select);
 
-	void getSelectedOptions(std::vector<int> &options) {
-		SelectedOptions = std::move(options);
-	}
+	void getSelectedOptions(std::vector<int>& options);
 
-	Result_ErrorCode doAction() {
-		return testsys->doAction(SelectedOptions);
-	}
+	Result_ErrorCode doAction();
 
 private:
 	std::vector<int> SelectedOptions;
